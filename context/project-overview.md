@@ -9,7 +9,6 @@
 
 Developers scatter their essentials across too many places:
 
-
 | What          | Where it ends up              |
 | ------------- | ----------------------------- |
 | Code snippets | VS Code, Notion, GitHub Gists |
@@ -20,7 +19,6 @@ Developers scatter their essentials across too many places:
 | Commands      | `.txt` files, bash history    |
 | Templates     | GitHub Gists, Google Drive    |
 
-
 This creates **context switching**, **lost knowledge**, and **inconsistent workflows**.
 
 **DevStash provides ONE searchable, AI-enhanced hub for all dev knowledge.**
@@ -29,14 +27,12 @@ This creates **context switching**, **lost knowledge**, and **inconsistent workf
 
 ## 👥 Target Users
 
-
 | Persona                       | Primary Needs                             |
 | ----------------------------- | ----------------------------------------- |
-| 🧑‍💻 Everyday Developer      | Quick access to snippets, commands, links |
+| 🧑‍💻 Everyday Developer         | Quick access to snippets, commands, links |
 | 🤖 AI-First Developer         | Store prompts, workflows, context files   |
 | 🎓 Content Creator / Educator | Save course notes, reusable examples      |
-| 🏗️ Full-Stack Builder        | Patterns, boilerplates, API references    |
-
+| 🏗️ Full-Stack Builder         | Patterns, boilerplates, API references    |
 
 ---
 
@@ -46,7 +42,6 @@ This creates **context switching**, **lost knowledge**, and **inconsistent workf
 
 Every saved resource is an **Item** with a built-in type:
 
-
 | Type    | Icon  | Description                      |
 | ------- | ----- | -------------------------------- |
 | Snippet | `</>` | Code in any language             |
@@ -54,9 +49,8 @@ Every saved resource is an **Item** with a built-in type:
 | Note    | `📝`  | Markdown notes                   |
 | Command | `$_`  | Terminal / CLI commands          |
 | File    | `📎`  | Uploaded files (docs, templates) |
-| Image   | `🖼️` | Screenshots, diagrams            |
+| Image   | `🖼️`  | Screenshots, diagrams            |
 | URL     | `🔗`  | Bookmarked links                 |
-
 
 > Pro users can define **custom item types** with custom names, icons, and colors.
 
@@ -109,7 +103,6 @@ Powered by **NextAuth v5**.
 
 ### F) AI Superpowers ✨
 
-
 | Feature          | Description                            |
 | ---------------- | -------------------------------------- |
 | Auto-tagging     | Suggests relevant tags on save         |
@@ -117,26 +110,22 @@ Powered by **NextAuth v5**.
 | Explain Code     | Plain-English explanation of a snippet |
 | Prompt Optimizer | Rewrites and improves AI prompts       |
 
-
 > Powered by **OpenAI `gpt-4o-mini`** (fast, low-cost inference)
 
 ---
 
 ## 💰 Pricing
 
-
 | Plan     | Price           | Item Limit | Collections | AI Features | File Uploads | Custom Types | Export |
 | -------- | --------------- | ---------- | ----------- | ----------- | ------------ | ------------ | ------ |
-| **Free** | $0/mo           | 50         | 3           | ❌           | Images only  | ❌            | ❌      |
-| **Pro**  | $8/mo or $72/yr | Unlimited  | Unlimited   | ✅           | All types    | ✅            | ✅      |
-
+| **Free** | $0/mo           | 50         | 3           | ❌          | Images only  | ❌           | ❌     |
+| **Pro**  | $8/mo or $72/yr | Unlimited  | Unlimited   | ✅          | All types    | ✅           | ✅     |
 
 > Payments via **Stripe** with webhook-based subscription syncing.
 
 ---
 
 ## 🧱 Tech Stack
-
 
 | Category     | Choice                                                                            | Notes                    |
 | ------------ | --------------------------------------------------------------------------------- | ------------------------ |
@@ -152,7 +141,6 @@ Powered by **NextAuth v5**.
 | Payments     | [Stripe](https://stripe.com/)                                                     | Subscriptions + webhooks |
 | Deployment   | [Vercel](https://vercel.com/)                                                     |                          |
 | Monitoring   | [Sentry](https://sentry.io/)                                                      | Deferred to post-MVP     |
-
 
 ---
 
@@ -263,8 +251,6 @@ graph TD
   NextAPI --> Redis[(Redis Cache\nUpstash)]
 ```
 
-
-
 ---
 
 ## 🔐 Auth Flow
@@ -278,8 +264,6 @@ flowchart LR
   Session --> AppAccess
 ```
 
-
-
 ---
 
 ## 🤖 AI Feature Flow
@@ -291,8 +275,6 @@ flowchart TD
   OpenAI --> Suggestions{{Auto-tags\nSummary\nExplain Code\nPrompt Optimizer}}
   Suggestions --> UIUpdate[UI Update]
 ```
-
-
 
 ---
 
@@ -307,8 +289,6 @@ flowchart LR
   DB --> ProAccess[Pro Features Unlocked]
 ```
 
-
-
 ---
 
 ## 🎨 UI / UX
@@ -317,6 +297,14 @@ flowchart LR
 - Minimal, distraction-free layout
 - Syntax highlighting for code snippets
 - Design inspiration: **Notion**, **Linear**, **Raycast**
+
+### Screenshots
+
+Refer to the screenshots below as a base for the dashboard UI.
+It does not have to be exact. Use it as a reference.
+
+- @context/screenshots/dashboard-ui-main.png
+- @context/screenshots/dashboard-ui-dashboard.png
 
 ### Layout
 
@@ -392,4 +380,4 @@ git switch -c lesson-04-items-crud
 
 ---
 
-*DevStash — Store Smarter. Build Faster.*
+_DevStash — Store Smarter. Build Faster._
