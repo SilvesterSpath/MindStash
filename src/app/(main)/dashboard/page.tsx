@@ -1,3 +1,5 @@
+import { DashboardHome } from "@/components/dashboard/dashboard-home";
+
 export default function DashboardPage() {
-  return <h2 className="text-lg font-semibold tracking-tight">Main</h2>;
+  return <DashboardHome />;
 }

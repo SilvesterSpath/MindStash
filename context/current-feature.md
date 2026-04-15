@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard UI Phase 2 — collapsible sidebar, collection sections, user avatar, drawer behavior, and mock data wiring (phase 2 of 3 for dashboard layout).
+Dashboard UI Phase 3 — main dashboard area: stats cards, recent collections, pinned items, and recent items list (phase 3 of 3 for dashboard layout).
 
 ## Status
 
@@ -8,24 +8,23 @@ Completed
 
 ## Goals
 
-- Collapsible sidebar
-- Items/types with links to `/items/TYPE` (e.g. `/items/snippets`)
-- Favorite collections
-- Most recent collections
-- User avatar area at the bottom
-- Drawer icon to open/close sidebar
-- Always a drawer on mobile view
+- Main area to the right of the sidebar (dashboard home content)
+- Recent collections
+- Pinned items
+- 10 recent items
+- Four stats cards at the top: total items, total collections, favorite items count, favorite collections count (not shown in screenshot; implement per spec)
 
-Use the phase 2 screenshot for visual target. Import mock data directly from `src/lib/mock-data.ts` until a database exists.
+Use the phase 3 / dashboard screenshot for visual target. Import mock data directly from `src/lib/mock-data.ts` until a database exists.
 
 ## Notes
 
 **References**
 
-- `context/scheenshots/dashboard-ui-main.png` (folder name as in repo)
+- `context/scheenshots/dashboard-ui-main.png` (folder name as in repo; spec references `context/screenshots/…`)
 - `context/project-overview.md`
-- `src/lib/mock-data.ts`
+- `src/lib/mock-data.ts` (spec file mentions `.js`; codebase uses `.ts`)
 - `context/features/dashboard-phase-1-spec.md`
+- `context/features/dashboard-phase-2-spec.md`
 - `context/features/dashboard-phase-3-spec.md`
 
 ## History
@@ -36,6 +35,7 @@ Use the phase 2 screenshot for visual target. Import mock data directly from `sr
 
 - 2026-04-10: Dashboard UI Phase 1 completed.
 - 2026-04-13: Dashboard UI Phase 2 completed.
+- 2026-04-15: Dashboard UI Phase 3 completed.
 
 **Initial Setup**
 
@@ -57,3 +57,9 @@ Use the phase 2 screenshot for visual target. Import mock data directly from `sr
 - 2026-04-13: Status set to In Progress.
 - 2026-04-13: Implemented phase 2: collapsible desktop sidebar, mobile `Sheet` drawer, type links to `/items/[slug]`, Favorites + Recent collection lists from mock data, user footer with settings control, header search copy + ⌘K hint; added `DashboardChrome`, `(main)` layout, and shadcn `sheet`.
 - 2026-04-13: Marked feature Completed after `npm run build` passed.
+
+**Dashboard UI Phase 3**
+
+- 2026-04-15: Scoped current work to phase 3 spec (`context/features/dashboard-phase-3-spec.md`); status set to In Progress.
+- 2026-04-15: Created branch `feature/dashboard-phase-3` and implemented dashboard home: stats row (items, collections, favorite items, favorite collections), recent collections grid, pinned list, and 10 recent items from `src/lib/mock-data.ts` via `DashboardHome` (`src/components/dashboard/dashboard-home.tsx`).
+- 2026-04-15: Marked feature Completed after `npm run build` passed.
