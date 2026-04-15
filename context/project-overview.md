@@ -1,4 +1,4 @@
-# 🗃️ DevStash — Project Overview
+# 🗃️ MindStash — Project Overview
 
 > **Store Smarter. Build Faster.**
 > A centralized, AI-enhanced knowledge hub for developers.
@@ -21,7 +21,7 @@ Developers scatter their essentials across too many places:
 
 This creates **context switching**, **lost knowledge**, and **inconsistent workflows**.
 
-**DevStash provides ONE searchable, AI-enhanced hub for all dev knowledge.**
+**MindStash provides ONE searchable, AI-enhanced hub for all dev knowledge.**
 
 ---
 
@@ -369,7 +369,7 @@ git switch -c lesson-04-items-crud
 - Shared / public collections
 - Team & Org plans
 - VS Code extension
-- Browser extension (clip anything to DevStash)
+- Browser extension (clip anything to MindStash)
 - Public API + CLI tool
 
 ---
@@ -380,4 +380,4 @@ git switch -c lesson-04-items-crud
 
 ---
 
-_DevStash — Store Smarter. Build Faster._
+_MindStash — Store Smarter. Build Faster._

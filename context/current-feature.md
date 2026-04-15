@@ -41,7 +41,7 @@ Use the phase 3 / dashboard screenshot for visual target. Import mock data direc
 
 - 2026-03-27: Initialized the Next.js app baseline.
 - 2026-03-27: Cleaned starter boilerplate:
-  - `src/app/page.tsx` simplified to render only `<h1>DevStash</h1>`.
+  - `src/app/page.tsx` simplified to render only `<h1>MindStash</h1>`.
   - `src/app/globals.css` reduced to only `@import "tailwindcss";`.
   - Removed default SVG assets from `public`.
 

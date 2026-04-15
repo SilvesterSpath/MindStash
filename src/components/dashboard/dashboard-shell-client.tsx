@@ -1,24 +1,14 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import {
-  Box,
-  Menu,
-  PanelLeft,
-  PanelLeftClose,
-  Search,
-} from "lucide-react";
-import { usePathname } from "next/navigation";
+import * as React from 'react';
+import { Box, Menu, PanelLeft, PanelLeftClose, Search } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
-import { DashboardSidebarNav } from "@/components/dashboard/dashboard-sidebar-nav";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+import { DashboardSidebarNav } from '@/components/dashboard/dashboard-sidebar-nav';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 
 /**
  * Client-only shell: sidebar collapse, mobile drawer, and active nav.
@@ -35,87 +25,84 @@ export function DashboardShellClient({
 
   return (
     <>
-      <header className="h-14 shrink-0 border-b border-border px-2 sm:px-4">
-        <div className="mx-auto flex h-full w-full max-w-6xl items-center gap-2 sm:gap-3">
+      <header className='h-14 shrink-0 border-b border-border px-2 sm:px-4'>
+        <div className='mx-auto flex h-full w-full max-w-6xl items-center gap-2 sm:gap-3'>
           <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="shrink-0 md:hidden"
-            aria-label="Open menu"
+            type='button'
+            variant='ghost'
+            size='icon'
+            className='shrink-0 md:hidden'
+            aria-label='Open menu'
             onClick={() => setMobileOpen(true)}
           >
-            <Menu className="size-5" />
+            <Menu className='size-5' />
           </Button>
           <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="hidden shrink-0 md:inline-flex"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            type='button'
+            variant='ghost'
+            size='icon'
+            className='hidden shrink-0 md:inline-flex'
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             onClick={() => setCollapsed((c) => !c)}
           >
             {collapsed ? (
-              <PanelLeft className="size-5" />
+              <PanelLeft className='size-5' />
             ) : (
-              <PanelLeftClose className="size-5" />
+              <PanelLeftClose className='size-5' />
             )}
           </Button>
-          <div className="flex min-w-0 shrink-0 items-center gap-2 text-sm font-semibold tracking-tight md:hidden">
-            <Box className="size-4" aria-hidden />
-            <span className="truncate">DevStash</span>
+          <div className='flex min-w-0 shrink-0 items-center gap-2 text-sm font-semibold tracking-tight md:hidden'>
+            <Box className='size-4' aria-hidden />
+            <span className='truncate'>MindStash</span>
           </div>
-          <div className="relative mx-auto min-w-0 flex-1 max-w-md">
+          <div className='relative mx-auto min-w-0 flex-1 max-w-md'>
             <Search
-              className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
+              className='pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground'
               aria-hidden
             />
             <Input
-              className="h-9 pl-9 pr-14 sm:pr-20"
-              placeholder="Search items..."
-              type="search"
-              aria-label="Search items"
+              className='h-9 pl-9 pr-14 sm:pr-20'
+              placeholder='Search items...'
+              type='search'
+              aria-label='Search items'
             />
-            <kbd className="pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded border border-border bg-muted px-1.5 py-0.5 font-sans text-[10px] font-medium text-muted-foreground sm:inline-block">
+            <kbd className='pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded border border-border bg-muted px-1.5 py-0.5 font-sans text-[10px] font-medium text-muted-foreground sm:inline-block'>
               ⌘K
             </kbd>
           </div>
-          <div className="ml-auto flex shrink-0 items-center gap-2">
+          <div className='ml-auto flex shrink-0 items-center gap-2'>
             <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="hidden sm:inline-flex"
+              type='button'
+              variant='outline'
+              size='sm'
+              className='hidden sm:inline-flex'
             >
               New collection
             </Button>
-            <Button type="button" size="sm">
+            <Button type='button' size='sm'>
               New item
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="flex min-h-0 flex-1">
+      <div className='flex min-h-0 flex-1'>
         <aside
           className={cn(
-            "hidden shrink-0 border-r border-sidebar-border md:flex md:flex-col md:transition-[width] md:duration-200 md:ease-in-out",
-            collapsed ? "md:w-18" : "md:w-64"
+            'hidden shrink-0 border-r border-sidebar-border md:flex md:flex-col md:transition-[width] md:duration-200 md:ease-in-out',
+            collapsed ? 'md:w-18' : 'md:w-64',
           )}
         >
-          <DashboardSidebarNav
-            collapsed={collapsed}
-            currentPath={pathname}
-          />
+          <DashboardSidebarNav collapsed={collapsed} currentPath={pathname} />
         </aside>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetContent
-            side="left"
+            side='left'
             showCloseButton
-            className="w-[min(100vw,18rem)] border-sidebar-border bg-sidebar p-0 sm:max-w-xs"
+            className='w-[min(100vw,18rem)] border-sidebar-border bg-sidebar p-0 sm:max-w-xs'
           >
-            <SheetTitle className="sr-only">Navigation</SheetTitle>
+            <SheetTitle className='sr-only'>Navigation</SheetTitle>
             <DashboardSidebarNav
               collapsed={false}
               currentPath={pathname}
@@ -124,7 +111,7 @@ export function DashboardShellClient({
           </SheetContent>
         </Sheet>
 
-        <main className="min-h-0 flex-1 overflow-auto p-4">{children}</main>
+        <main className='min-h-0 flex-1 overflow-auto p-4'>{children}</main>
       </div>
     </>
   );
