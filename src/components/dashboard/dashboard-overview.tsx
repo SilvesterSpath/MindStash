@@ -7,10 +7,7 @@ import {
   resolveDashboardUserId,
   type DashboardCollectionCard,
 } from '@/lib/db/collections';
-import {
-  getDashboardItemsModel,
-  type DashboardItemCard,
-} from '@/lib/db/items';
+import { getDashboardItemsModel, type DashboardItemCard } from '@/lib/db/items';
 import { cn } from '@/lib/utils';
 
 function StatCard({
@@ -159,7 +156,10 @@ export async function DashboardOverview() {
           },
           collections: [] as DashboardCollectionCard[],
         },
-        { pinned: [] as DashboardItemCard[], recent: [] as DashboardItemCard[] },
+        {
+          pinned: [] as DashboardItemCard[],
+          recent: [] as DashboardItemCard[],
+        },
       ];
 
   const { totalItems, totalCollections, favoriteItems, favoriteCollections } =
