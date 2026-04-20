@@ -7,7 +7,10 @@ import {
   resolveDashboardUserId,
   type DashboardCollectionCard,
 } from '@/lib/db/collections';
-import { mockItems } from '@/lib/mock-data';
+import {
+  getDashboardItemsModel,
+  type DashboardItemCard,
+} from '@/lib/db/items';
 import { cn } from '@/lib/utils';
 
 function StatCard({
@@ -91,19 +94,18 @@ function ItemRow({
   item,
   showPinColumn,
 }: {
-  item: (typeof mockItems)[number];
+  item: DashboardItemCard;
   showPinColumn: boolean;
 }) {
   return (
-    <div className='flex gap-3 rounded-lg border border-border bg-card/60 px-3 py-3 sm:px-4'>
-      <div className='flex shrink-0 items-start gap-2 pt-0.5'>
-        {showPinColumn ? (
-          item.isPinned ? (
-            <Pin className='size-4 shrink-0 text-primary' aria-label='Pinned' />
-          ) : (
-            <span className='inline-flex size-4 shrink-0' aria-hidden />
-          )
-        ) : null}
+    <div
+      className={cn(
+        'flex gap-3 rounded-lg border border-border bg-card/60 px-3 py-3 sm:px-4',
+        'border-l-4',
+      )}
+      style={{ borderLeftColor: item.accentColor }}
+    >
+      <div className='flex shrink-0 items-start pt-0.5'>
         <ItemTypeGlyph typeName={item.typeName} size='md' />
       </div>
       <div className='min-w-0 flex-1 space-y-1'>
@@ -114,6 +116,9 @@ function ItemRow({
               className='size-3.5 shrink-0 fill-amber-400 text-amber-400'
               aria-label='Favorite item'
             />
+          ) : null}
+          {showPinColumn && item.isPinned ? (
+            <Pin className='size-4 shrink-0 text-primary' aria-label='Pinned' />
           ) : null}
         </div>
         <p className='line-clamp-2 text-xs text-muted-foreground'>
@@ -139,23 +144,28 @@ function ItemRow({
 
 export async function DashboardOverview() {
   const userId = await resolveDashboardUserId();
-  const { stats, collections: recentCollections } = userId
-    ? await getDashboardCollectionsModel(userId)
-    : {
-        stats: {
-          totalItems: 0,
-          totalCollections: 0,
-          favoriteItems: 0,
-          favoriteCollections: 0,
+  const [{ stats, collections: recentCollections }, itemsModel] = userId
+    ? await Promise.all([
+        getDashboardCollectionsModel(userId),
+        getDashboardItemsModel(userId),
+      ])
+    : [
+        {
+          stats: {
+            totalItems: 0,
+            totalCollections: 0,
+            favoriteItems: 0,
+            favoriteCollections: 0,
+          },
+          collections: [] as DashboardCollectionCard[],
         },
-        collections: [] as DashboardCollectionCard[],
-      };
+        { pinned: [] as DashboardItemCard[], recent: [] as DashboardItemCard[] },
+      ];
 
   const { totalItems, totalCollections, favoriteItems, favoriteCollections } =
     stats;
 
-  const pinnedItems = mockItems.filter((i) => i.isPinned);
-  const recentItems = mockItems.slice(0, 10);
+  const { pinned: pinnedItems, recent: recentItems } = itemsModel;
 
   return (
     <div className='mx-auto flex w-full max-w-6xl flex-col gap-8'>
@@ -217,19 +227,21 @@ export async function DashboardOverview() {
         </div>
       </section>
 
-      <section aria-labelledby='pinned-heading' className='space-y-3'>
-        <h2
-          id='pinned-heading'
-          className='text-lg font-semibold tracking-tight'
-        >
-          Pinned
-        </h2>
-        <div className='flex flex-col gap-2'>
-          {pinnedItems.map((item) => (
-            <ItemRow key={item.id} item={item} showPinColumn />
-          ))}
-        </div>
-      </section>
+      {pinnedItems.length > 0 ? (
+        <section aria-labelledby='pinned-heading' className='space-y-3'>
+          <h2
+            id='pinned-heading'
+            className='text-lg font-semibold tracking-tight'
+          >
+            Pinned
+          </h2>
+          <div className='flex flex-col gap-2'>
+            {pinnedItems.map((item) => (
+              <ItemRow key={item.id} item={item} showPinColumn />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby='recent-items-heading' className='space-y-3'>
         <h2

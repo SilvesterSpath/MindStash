@@ -1,26 +1,32 @@
 # Current Feature
 
-Dashboard Collections — Replace the dummy collection data in the dashboard main area (right side) with actual data from the Neon database via Prisma. Keep the six recent collection cards as they look today; do not add the items row underneath yet.
+<!-- Feature Name -->
 
 ## Status
 
-Completed
+<!-- Not Started|In Progress|Completed -->
+
+Not Started
 
 ## Goals
 
-- Create `src/lib/db/collections.ts` with data fetching functions.
-- Fetch collections directly in a server component (not from `src/lib/mock-data.ts`).
-- Collection card border color derived from the most-used content type in that collection.
-- Show small icons for all item types present in that collection.
-- Preserve the current design and layout (reference screenshot if needed).
-- Update the collection stats display.
+<!-- Goals & requirements -->
 
 ## Notes
 
-- Full spec: `context/features/dashboard-collections-spec.md`
-- Screenshot: `context/screenshots/dashboard-ui-main.png`
+<!-- Any extra notes -->
 
 ## History
+
+<!-- Keep this updated. Earliest to latest -->
+
+**Dashboard Items**
+
+- 2026-04-20: Scoped current work to `context/features/dashboard-items-spec.md`; status set to In Progress.
+
+- 2026-04-20: Delivered scope: `src/lib/db/items.ts` (`getPinnedDashboardItems`, `getRecentDashboardItems`, `getDashboardItemsModel`); `DashboardOverview` loads pinned and recent items from Prisma (no `mockItems`); type-colored left border on item rows; pinned section omitted when empty; seed optional `isPinned` / `isFavorite` on demo items.
+
+- 2026-04-20: Marked feature Completed after `npm run build` passed.
 
 **Dashboard Collections**
 
@@ -56,6 +62,8 @@ Completed
 - 2026-04-16: Neon PostgreSQL + Prisma ORM setup completed.
 
 - 2026-04-20: Dashboard Collections completed.
+
+- 2026-04-20: Dashboard Items completed.
 
 **Initial Setup**
 

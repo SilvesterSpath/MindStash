@@ -95,6 +95,8 @@ async function createItemInCollection(
     language?: string | null;
     url?: string | null;
     description?: string | null;
+    isPinned?: boolean;
+    isFavorite?: boolean;
   },
 ) {
   await prisma.item.create({
@@ -105,6 +107,8 @@ async function createItemInCollection(
       language: data.language ?? null,
       url: data.url ?? null,
       description: data.description ?? null,
+      isPinned: data.isPinned ?? false,
+      isFavorite: data.isFavorite ?? false,
       userId: data.userId,
       itemTypeId: data.itemTypeId,
       collections: { create: [{ collectionId }] },
@@ -172,6 +176,7 @@ async function main() {
     title: "Custom hooks (debounce, storage, media)",
     contentType: ContentType.TEXT,
     language: "typescript",
+    isPinned: true,
     content: `import { useEffect, useRef, useState } from "react";
 
 export function useDebounce<T>(value: T, delayMs: number): T {
@@ -210,6 +215,7 @@ export function useLocalStorage<T>(key: string, initial: T) {
     title: "Context providers & compound components",
     contentType: ContentType.TEXT,
     language: "typescript",
+    isPinned: true,
     content: `// Theme context + compound Tabs (simplified pattern)
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
