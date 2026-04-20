@@ -2,7 +2,12 @@ import type { LucideIcon } from 'lucide-react';
 import { Code2, Folder, Heart, Pin, Star } from 'lucide-react';
 
 import { ItemTypeGlyph } from '@/components/dashboard/item-type-glyph';
-import { mockCollections, mockItems } from '@/lib/mock-data';
+import {
+  getDashboardHomeCollectionsModel,
+  resolveDashboardUserId,
+  type DashboardCollectionCard,
+} from '@/lib/db/collections';
+import { mockItems } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 
 function StatCard({
@@ -37,7 +42,7 @@ function StatCard({
 function CollectionCard({
   collection,
 }: {
-  collection: (typeof mockCollections)[number];
+  collection: DashboardCollectionCard;
 }) {
   return (
     <article
@@ -61,14 +66,14 @@ function CollectionCard({
         )}
       </div>
       <p className='line-clamp-2 text-xs text-muted-foreground'>
-        {collection.description}
+        {collection.description ?? ''}
       </p>
       <div className='mt-auto flex flex-wrap items-center justify-between gap-2 pt-1'>
         <span className='text-xs tabular-nums text-muted-foreground'>
           {collection.itemCount} items
         </span>
         <div className='flex flex-wrap items-center justify-end gap-2'>
-          {collection.typeLabelsShown.map((label) => (
+          {collection.typeNamesForGlyphs.map((label) => (
             <ItemTypeGlyph key={label} typeName={label} size='md' />
           ))}
         </div>
@@ -127,15 +132,27 @@ function ItemRow({
   );
 }
 
-export function DashboardHome() {
-  const totalItems = mockItems.length;
-  const totalCollections = mockCollections.length;
-  const favoriteItems = mockItems.filter((i) => i.isFavorite).length;
-  const favoriteCollections = mockCollections.filter(
-    (c) => c.isFavorite,
-  ).length;
+export async function DashboardHome() {
+  const userId = await resolveDashboardUserId();
+  const { stats, collections: recentCollections } = userId
+    ? await getDashboardHomeCollectionsModel(userId)
+    : {
+        stats: {
+          totalItems: 0,
+          totalCollections: 0,
+          favoriteItems: 0,
+          favoriteCollections: 0,
+        },
+        collections: [] as DashboardCollectionCard[],
+      };
 
-  const recentCollections = mockCollections;
+  const {
+    totalItems,
+    totalCollections,
+    favoriteItems,
+    favoriteCollections,
+  } = stats;
+
   const pinnedItems = mockItems.filter((i) => i.isPinned);
   const recentItems = mockItems.slice(0, 10);
 
