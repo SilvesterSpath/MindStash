@@ -6,8 +6,6 @@
 
 <!-- Not Started|In Progress|Completed -->
 
-Not Started
-
 ## Goals
 
 <!-- Goals & requirements -->
@@ -20,78 +18,25 @@ Not Started
 
 <!-- Keep this updated. Earliest to latest -->
 
-**Dashboard Items**
-
-- 2026-04-20: Scoped current work to `context/features/dashboard-items-spec.md`; status set to In Progress.
-
-- 2026-04-20: Delivered scope: `src/lib/db/items.ts` (`getPinnedDashboardItems`, `getRecentDashboardItems`, `getDashboardItemsModel`); `DashboardOverview` loads pinned and recent items from Prisma (no `mockItems`); type-colored left border on item rows; pinned section omitted when empty; seed optional `isPinned` / `isFavorite` on demo items.
-
-- 2026-04-20: Marked feature Completed after `npm run build` passed.
-
-**Dashboard Collections**
-
-- 2026-04-20: Scoped current work to `context/features/dashboard-collections-spec.md`; status set to In Progress.
-
-- 2026-04-20: Delivered scope: `src/lib/db/collections.ts`, Prisma-backed recent collections and stats in `DashboardOverview` (`src/components/dashboard/dashboard-overview.tsx`); collection accent from dominant item type; type glyphs per collection; `/dashboard` forced dynamic; pinned and recent item lists still mock (deferred).
-
-- 2026-04-20: Marked feature Completed after `npm run build` passed.
-
-**App shell vs. dashboard route (naming refactor)**
-
-- 2026-04-20: Clarified naming so “dashboard” refers to `/dashboard` content, not the logged-in frame.
-
-| Type | Example |
-|------|---------|
-| Architectural intent | Separated app shell from dashboard route |
-| Conceptual rename | `dashboard-*` → `app-shell-*` (persistent frame); `/dashboard` page body renamed to `dashboard-overview` / `DashboardOverview` |
-| Responsibility split | Layout owns shell, route owns page content |
-| Folder restructuring | `src/components/app-shell/` introduced |
-
-**Seed data**
-
-- 2026-04-17: Scoped current work to `context/features/seed-spec.md`; status set to In Progress.
-
-**Completed Features**
-
-- 2026-04-10: Dashboard UI Phase 1 completed.
-
-- 2026-04-13: Dashboard UI Phase 2 completed.
-
-- 2026-04-15: Dashboard UI Phase 3 completed.
-
-- 2026-04-16: Neon PostgreSQL + Prisma ORM setup completed.
-
-- 2026-04-20: Dashboard Collections completed.
-
-- 2026-04-20: Dashboard Items completed.
-
 **Initial Setup**
 
 - 2026-03-27: Initialized the Next.js app baseline.
 
-- 2026-03-27: Cleaned starter boilerplate:
-
-  - `src/app/page.tsx` simplified to render only `<h1>MindStash</h1>`.
-
-  - `src/app/globals.css` reduced to only `@import "tailwindcss";`.
-
-  - Removed default SVG assets from `public`.
+- 2026-03-27: Cleaned starter boilerplate: `src/app/page.tsx` simplified to render only `<h1>MindStash</h1>`; `src/app/globals.css` reduced to only `@import "tailwindcss";`; removed default SVG assets from `public`.
 
 **Dashboard UI Phase 1**
 
 - 2026-04-10: Scoped current work to phase 1 spec; status set to In Progress.
 
-- 2026-04-10: Implemented phase 1 dashboard UI and marked feature as Completed.
-
 - 2026-04-10: Delivered phase 1 scope: ShadCN setup, `/dashboard` route, dark-mode layout, top bar (search + `New item` + `New collection`), and sidebar/main placeholders.
+
+- 2026-04-10: Marked feature Completed after `npm run build` passed.
 
 **Dashboard UI Phase 2**
 
-- 2026-04-13: Scoped current work to phase 2 spec (`context/features/dashboard-phase-2-spec.md`); status set to Not Started.
+- 2026-04-13: Scoped current work to phase 2 spec (`context/features/dashboard-phase-2-spec.md`); status set to In Progress.
 
-- 2026-04-13: Status set to In Progress.
-
-- 2026-04-13: Implemented phase 2: collapsible desktop sidebar, mobile `Sheet` drawer, type links to `/items/[slug]`, Favorites + Recent collection lists from mock data, user footer with settings control, header search copy + ⌘K hint; added `DashboardChrome`, `(main)` layout, and shadcn `sheet`.
+- 2026-04-13: Delivered phase 2 scope: collapsible desktop sidebar, mobile `Sheet` drawer, type links to `/items/[slug]`, Favorites + Recent collection lists from mock data, user footer with settings control, header search copy + ⌘K hint; added `DashboardChrome`, `(main)` layout, and shadcn `sheet`.
 
 - 2026-04-13: Marked feature Completed after `npm run build` passed.
 
@@ -114,3 +59,41 @@ Not Started
 - 2026-04-16: Ran seed successfully and verified data via `scripts/test-db.ts` (system item types present).
 
 - 2026-04-16: Marked feature Completed after `npm run build` passed.
+
+**Seed data**
+
+- 2026-04-17: Scoped current work to `context/features/seed-spec.md`; status set to In Progress.
+
+**App shell vs. dashboard route (naming refactor)**
+
+- 2026-04-20: Clarified naming — "dashboard" refers to `/dashboard` content, not the logged-in frame. Separated the persistent app shell from the dashboard route; renamed `dashboard-*` components to `app-shell-*`; `/dashboard` page body became `DashboardOverview` in `src/components/dashboard/`; introduced `src/components/app-shell/`.
+
+**Dashboard Collections**
+
+- 2026-04-20: Scoped current work to `context/features/dashboard-collections-spec.md`; status set to In Progress.
+
+- 2026-04-20: Delivered scope: `src/lib/db/collections.ts`, Prisma-backed recent collections and stats in `DashboardOverview` (`src/components/dashboard/dashboard-overview.tsx`); collection accent from dominant item type; type glyphs per collection; `/dashboard` forced dynamic; pinned and recent item lists still mock (deferred).
+
+- 2026-04-20: Marked feature Completed after `npm run build` passed.
+
+**Dashboard Items**
+
+- 2026-04-20: Scoped current work to `context/features/dashboard-items-spec.md`; status set to In Progress.
+
+- 2026-04-20: Delivered scope: `src/lib/db/items.ts` (`getPinnedDashboardItems`, `getRecentDashboardItems`, `getDashboardItemsModel`); `DashboardOverview` loads pinned and recent items from Prisma (no `mockItems`); type-colored left border on item rows; pinned section omitted when empty; seed optional `isPinned` / `isFavorite` on demo items.
+
+- 2026-04-20: Marked feature Completed after `npm run build` passed.
+
+**Stats & Sidebar**
+
+- 2026-04-20: Scoped current work to `context/features/stats-sidebar-spec.md`; status set to In Progress.
+
+- 2026-04-20: Delivered scope: `src/lib/db/sidebar.ts` (`getSidebarData` — system item types with per-user counts, favorite collections, recent collections with dominant-type accent color); `AppShell` made async to fetch sidebar data server-side; `AppShellClient` and `AppSidebarNav` updated to consume real DB data (mock data removed); recent collections in sidebar show a colored accent circle; "View all" on the dashboard collections section links to `/collections`.
+
+- 2026-04-20: Reordered sidebar item types to: Snippet, Prompt, Command, Note, File, Image, Link.
+
+- 2026-04-20: Added horizontal divider between Types and Collections sections in sidebar; "Collections" header added below divider matching "Types" style.
+
+- 2026-04-20: Added collapsible toggle (chevron) to both Types and Collections sidebar sections; chevron rotates 90° when open; both sections default to expanded.
+
+- 2026-04-20: Marked feature Completed.

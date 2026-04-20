@@ -8,6 +8,7 @@ import { AppSidebarNav } from '@/components/app-shell/app-sidebar-nav';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
+import { type SidebarData } from '@/lib/db/sidebar';
 import { cn } from '@/lib/utils';
 
 /**
@@ -15,8 +16,10 @@ import { cn } from '@/lib/utils';
  * Pages passed as `children` remain server components from the app tree.
  */
 export function AppShellClient({
+  sidebarData,
   children,
 }: Readonly<{
+  sidebarData: SidebarData;
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
@@ -93,7 +96,11 @@ export function AppShellClient({
             collapsed ? 'md:w-18' : 'md:w-64',
           )}
         >
-          <AppSidebarNav collapsed={collapsed} currentPath={pathname} />
+          <AppSidebarNav
+            collapsed={collapsed}
+            currentPath={pathname}
+            sidebarData={sidebarData}
+          />
         </aside>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -107,6 +114,7 @@ export function AppShellClient({
               collapsed={false}
               currentPath={pathname}
               onNavigate={() => setMobileOpen(false)}
+              sidebarData={sidebarData}
             />
           </SheetContent>
         </Sheet>

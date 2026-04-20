@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
 import { Code2, Folder, Heart, Pin, Star } from 'lucide-react';
 
@@ -216,9 +217,12 @@ export async function DashboardOverview() {
           >
             Recent collections
           </h2>
-          <span className='text-xs font-medium text-muted-foreground'>
+          <Link
+            href='/collections'
+            className='text-xs font-medium text-muted-foreground hover:text-foreground transition-colors'
+          >
             View all
-          </span>
+          </Link>
         </div>
         <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-3'>
           {recentCollections.map((c) => (
