@@ -3,7 +3,7 @@ import { Code2, Folder, Heart, Pin, Star } from 'lucide-react';
 
 import { ItemTypeGlyph } from '@/components/dashboard/item-type-glyph';
 import {
-  getDashboardHomeCollectionsModel,
+  getDashboardCollectionsModel,
   resolveDashboardUserId,
   type DashboardCollectionCard,
 } from '@/lib/db/collections';
@@ -25,7 +25,10 @@ function StatCard({
     <div className='flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-sm'>
       <span className='flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted/50'>
         <Icon
-          className={cn('size-4 shrink-0 fill-none stroke-[1.9]', iconClassName)}
+          className={cn(
+            'size-4 shrink-0 fill-none stroke-[1.9]',
+            iconClassName,
+          )}
           aria-hidden
         />
       </span>
@@ -33,7 +36,9 @@ function StatCard({
         <p className='font-heading text-3xl leading-none font-semibold tabular-nums tracking-tight'>
           {value}
         </p>
-        <p className='mt-1 text-xs font-medium text-muted-foreground'>{label}</p>
+        <p className='mt-1 text-xs font-medium text-muted-foreground'>
+          {label}
+        </p>
       </div>
     </div>
   );
@@ -132,10 +137,10 @@ function ItemRow({
   );
 }
 
-export async function DashboardHome() {
+export async function DashboardOverview() {
   const userId = await resolveDashboardUserId();
   const { stats, collections: recentCollections } = userId
-    ? await getDashboardHomeCollectionsModel(userId)
+    ? await getDashboardCollectionsModel(userId)
     : {
         stats: {
           totalItems: 0,
@@ -146,12 +151,8 @@ export async function DashboardHome() {
         collections: [] as DashboardCollectionCard[],
       };
 
-  const {
-    totalItems,
-    totalCollections,
-    favoriteItems,
-    favoriteCollections,
-  } = stats;
+  const { totalItems, totalCollections, favoriteItems, favoriteCollections } =
+    stats;
 
   const pinnedItems = mockItems.filter((i) => i.isPinned);
   const recentItems = mockItems.slice(0, 10);

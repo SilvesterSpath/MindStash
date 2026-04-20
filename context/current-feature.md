@@ -26,6 +26,17 @@ In Progress
 
 - 2026-04-20: Scoped current work to `context/features/dashboard-collections-spec.md`; status set to In Progress.
 
+**App shell vs. dashboard route (naming refactor)**
+
+- 2026-04-20: Clarified naming so “dashboard” refers to `/dashboard` content, not the logged-in frame.
+
+| Type | Example |
+|------|---------|
+| Architectural intent | Separated app shell from dashboard route |
+| Conceptual rename | `dashboard-*` → `app-shell-*` (persistent frame); `/dashboard` page body renamed to `dashboard-overview` / `DashboardOverview` |
+| Responsibility split | Layout owns shell, route owns page content |
+| Folder restructuring | `src/components/app-shell/` introduced |
+
 **Seed data**
 
 - 2026-04-17: Scoped current work to `context/features/seed-spec.md`; status set to In Progress.

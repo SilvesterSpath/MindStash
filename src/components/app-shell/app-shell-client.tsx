@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Box, Menu, PanelLeft, PanelLeftClose, Search } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-import { DashboardSidebarNav } from '@/components/dashboard/dashboard-sidebar-nav';
+import { AppSidebarNav } from '@/components/app-shell/app-sidebar-nav';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  * Client-only shell: sidebar collapse, mobile drawer, and active nav.
  * Pages passed as `children` remain server components from the app tree.
  */
-export function DashboardShellClient({
+export function AppShellClient({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -93,7 +93,7 @@ export function DashboardShellClient({
             collapsed ? 'md:w-18' : 'md:w-64',
           )}
         >
-          <DashboardSidebarNav collapsed={collapsed} currentPath={pathname} />
+          <AppSidebarNav collapsed={collapsed} currentPath={pathname} />
         </aside>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -103,7 +103,7 @@ export function DashboardShellClient({
             className='w-[min(100vw,18rem)] border-sidebar-border bg-sidebar p-0 sm:max-w-xs'
           >
             <SheetTitle className='sr-only'>Navigation</SheetTitle>
-            <DashboardSidebarNav
+            <AppSidebarNav
               collapsed={false}
               currentPath={pathname}
               onNavigate={() => setMobileOpen(false)}

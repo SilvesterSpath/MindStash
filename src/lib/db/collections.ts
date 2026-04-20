@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 const DEFAULT_DASHBOARD_USER_EMAIL =
-  process.env.DASHBOARD_USER_EMAIL ?? "demo@devstash.io";
+  process.env.DASHBOARD_USER_EMAIL ?? 'demo@devstash.io';
 
 /** Map DB `item_types.name` (e.g. `snippet`) to UI label used by `ItemTypeGlyph` (`Snippet`). */
 export function itemTypeNameToDisplay(dbName: string): string {
@@ -54,10 +54,7 @@ export async function getDashboardCollectionStats(
 }
 
 function pickDominantAccent(
-  typeStats: Map<
-    string,
-    { count: number; color: string; displayName: string }
-  >,
+  typeStats: Map<string, { count: number; color: string; displayName: string }>,
 ): string {
   let best: { count: number; color: string; displayName: string } | null = null;
   for (const stat of typeStats.values()) {
@@ -73,22 +70,20 @@ function pickDominantAccent(
       }
     }
   }
-  return best?.color ?? "#6b7280";
+  return best?.color ?? '#6b7280';
 }
 
-function toCollectionCard(
-  row: {
-    id: string;
-    name: string;
-    description: string | null;
-    isFavorite: boolean;
-    defaultType: { id: string; name: string; color: string } | null;
-    items: {
-      addedAt: Date;
-      item: { itemType: { id: string; name: string; color: string } };
-    }[];
-  },
-): DashboardCollectionCard {
+function toCollectionCard(row: {
+  id: string;
+  name: string;
+  description: string | null;
+  isFavorite: boolean;
+  defaultType: { id: string; name: string; color: string } | null;
+  items: {
+    addedAt: Date;
+    item: { itemType: { id: string; name: string; color: string } };
+  }[];
+}): DashboardCollectionCard {
   const typeStats = new Map<
     string,
     { count: number; color: string; displayName: string }
@@ -167,7 +162,7 @@ export async function getRecentDashboardCollections(
   return scored.slice(0, limit).map((s) => toCollectionCard(s.row));
 }
 
-export async function getDashboardHomeCollectionsModel(
+export async function getDashboardCollectionsModel(
   userId: string,
   collectionLimit = 6,
 ): Promise<{

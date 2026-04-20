@@ -1,9 +1,9 @@
-import { DashboardChrome } from "@/components/dashboard/dashboard-chrome";
+import { AppShell } from "@/components/app-shell/app-shell";
 
 export default function MainAppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <DashboardChrome>{children}</DashboardChrome>;
+  return <AppShell>{children}</AppShell>;
 }
