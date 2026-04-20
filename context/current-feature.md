@@ -4,7 +4,7 @@ Dashboard Collections — Replace the dummy collection data in the dashboard mai
 
 ## Status
 
-In Progress
+Completed
 
 ## Goals
 
@@ -25,6 +25,10 @@ In Progress
 **Dashboard Collections**
 
 - 2026-04-20: Scoped current work to `context/features/dashboard-collections-spec.md`; status set to In Progress.
+
+- 2026-04-20: Delivered scope: `src/lib/db/collections.ts`, Prisma-backed recent collections and stats in `DashboardOverview` (`src/components/dashboard/dashboard-overview.tsx`); collection accent from dominant item type; type glyphs per collection; `/dashboard` forced dynamic; pinned and recent item lists still mock (deferred).
+
+- 2026-04-20: Marked feature Completed after `npm run build` passed.
 
 **App shell vs. dashboard route (naming refactor)**
 
@@ -50,6 +54,8 @@ In Progress
 - 2026-04-15: Dashboard UI Phase 3 completed.
 
 - 2026-04-16: Neon PostgreSQL + Prisma ORM setup completed.
+
+- 2026-04-20: Dashboard Collections completed.
 
 **Initial Setup**
 
