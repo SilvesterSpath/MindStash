@@ -1,20 +1,16 @@
-# Current Feature: Add Pro Badge to Sidebar
+# Current Feature
 
 ## Status
 
-In Progress
+<!-- Not Started|In Progress|Completed -->
 
 ## Goals
 
-- Add a PRO badge to the `File` and `Image` item types in the sidebar.
-- Use the shadcn/ui `Badge` component for the badge.
-- Keep the badge styling clean and subtle so it fits the existing sidebar UI.
-- Render badge text as uppercase `PRO`.
+<!-- Goals & requirements -->
 
 ## Notes
 
-- Loaded from `context/features/add-pro-badge-sidebar.md`.
-- Overview: add a pro badge to the files and images types in the sidebar.
+<!-- Any extra notes -->
 
 ## History
 
@@ -99,3 +95,11 @@ In Progress
 - 2026-04-20: Added collapsible toggle (chevron) to both Types and Collections sidebar sections; chevron rotates 90° when open; both sections default to expanded.
 
 - 2026-04-20: Marked feature Completed.
+
+**Add Pro Badge to Sidebar**
+
+- 2026-05-22: Scoped current work to `context/features/add-pro-badge-sidebar.md`; status set to In Progress.
+
+- 2026-05-22: Added subtle uppercase `PRO` badges for `File` and `Image` item types in `src/components/app-shell/app-sidebar-nav.tsx` using shadcn/ui `Badge`.
+
+- 2026-05-22: Marked feature Completed after `npm run build` passed.
