@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Box, ChevronRight, Settings, Star } from 'lucide-react';
 
 import { ItemTypeGlyph } from '@/components/dashboard/item-type-glyph';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getItemTypeHref, pluralizeTypeLabel } from '@/lib/item-type-paths';
 import { type SidebarData } from '@/lib/db/sidebar';
@@ -108,6 +109,9 @@ export function AppSidebarNav({
                 if (!href) return null;
                 const active =
                   currentPath === href || currentPath.startsWith(`${href}/`);
+                const showProBadge = ['file', 'image'].includes(
+                  t.name.toLowerCase(),
+                );
                 return (
                   <li key={t.id}>
                     <Link
@@ -122,6 +126,14 @@ export function AppSidebarNav({
                           <span className='min-w-0 flex-1 truncate'>
                             {pluralizeTypeLabel(t.name)}
                           </span>
+                          {showProBadge ? (
+                            <Badge
+                              variant='secondary'
+                              className='h-5 border-sidebar-border/60 bg-sidebar-accent/60 px-1.5 text-[10px] font-semibold tracking-wide text-muted-foreground'
+                            >
+                              PRO
+                            </Badge>
+                          ) : null}
                           <span className='shrink-0 tabular-nums text-muted-foreground'>
                             {t.itemCount}
                           </span>
