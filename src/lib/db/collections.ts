@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { cache } from 'react';
 
 const DEFAULT_DASHBOARD_USER_EMAIL =
   process.env.DASHBOARD_USER_EMAIL ?? 'demo@devstash.io';
@@ -9,13 +10,13 @@ export function itemTypeNameToDisplay(dbName: string): string {
   return dbName.charAt(0).toUpperCase() + dbName.slice(1).toLowerCase();
 }
 
-export async function resolveDashboardUserId(): Promise<string | null> {
+export const resolveDashboardUserId = cache(async (): Promise<string | null> => {
   const user = await prisma.user.findUnique({
     where: { email: DEFAULT_DASHBOARD_USER_EMAIL },
     select: { id: true },
   });
   return user?.id ?? null;
-}
+});
 
 export type DashboardCollectionCard = {
   id: string;

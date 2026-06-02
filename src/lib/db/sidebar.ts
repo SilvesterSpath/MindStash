@@ -65,10 +65,13 @@ export async function getSidebarData(
   const [rawTypes, favoriteRows, recentRows] = await Promise.all([
     prisma.itemType.findMany({
       where: { isSystem: true },
-      include: {
-        items: {
-          where: { userId },
-          select: { id: true },
+      select: {
+        id: true,
+        name: true,
+        _count: {
+          select: {
+            items: { where: { userId } },
+          },
         },
       },
     }),
@@ -108,7 +111,7 @@ export async function getSidebarData(
     .map((t) => ({
       id: t.id,
       name: itemTypeNameToDisplay(t.name),
-      itemCount: t.items.length,
+      itemCount: t._count.items,
     }));
 
   const favoriteCollections: SidebarCollection[] = favoriteRows.map((c) => ({

@@ -43,3 +43,5 @@ src/generated/prisma/
 
 .cursor
 *.txt
+
+agent-guide.md

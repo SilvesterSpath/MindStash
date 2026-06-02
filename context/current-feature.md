@@ -103,3 +103,11 @@
 - 2026-05-22: Added subtle uppercase `PRO` badges for `File` and `Image` item types in `src/components/app-shell/app-sidebar-nav.tsx` using shadcn/ui `Badge`.
 
 - 2026-05-22: Marked feature Completed after `npm run build` passed.
+
+**Quick Wins - Query Efficiency and Cleanup**
+
+- 2026-06-02: Scoped current work to low-risk quick wins from audit findings; status set to In Progress.
+
+- 2026-06-02: Implemented query-efficiency improvements: `resolveDashboardUserId` is now request-cached in `src/lib/db/collections.ts`, and sidebar type counts now use Prisma relation `_count` in `src/lib/db/sidebar.ts` instead of loading item ID rows.
+
+- 2026-06-02: Marked feature Completed after `npm run lint` and `npm run build` passed.
