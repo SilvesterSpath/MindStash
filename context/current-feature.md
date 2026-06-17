@@ -1,61 +1,59 @@
 # Current Feature
 
-## Auth Setup - NextAuth + GitHub Provider
+## Auth Credentials - Email/Password Provider
 
 ## Status
 
-Completed
+In Progress
 
-## Goals
+## Overview
 
-Set up NextAuth v5 with Prisma adapter and GitHub OAuth. Use NextAuth's default pages for testing.
+Add Credentials provider for email/password authentication with registration.
 
-### Requirements
+## Requirements
 
-- Install NextAuth v5 (`next-auth@beta`) and `@auth/prisma-adapter`
-- Set up split auth config pattern for edge compatibility
-- Add GitHub OAuth provider
-- Protect `/dashboard/*` routes using Next.js 16 proxy
-- Redirect unauthenticated users to sign-in
+- Use bcryptjs for hashing (already installed)
+- Add password field to User model via migration if not already there
+- Update `auth.config.ts` with Credentials provider placeholder
+- Update `auth.ts` to override Credentials with bcrypt validation
+- Create registration API route at `/api/auth/register`
 
-### Files to Create
+## Registration API Route
 
-1. `src/auth.config.ts` - Edge-compatible config (providers only, no adapter)
-2. `src/auth.ts` - Full config with Prisma adapter and JWT strategy
-3. `src/app/api/auth/[...nextauth]/route.ts` - Export handlers from auth.ts
-4. `src/proxy.ts` - Route protection with redirect logic
-5. `src/types/next-auth.d.ts` - Extend Session type with user.id
+`POST /api/auth/register`
+
+- Accept: name, email, password, confirmPassword
+- Validate passwords match
+- Check if user already exists
+- Hash password with bcryptjs
+- Create user in database
+- Return success/error response
 
 ## Notes
 
-### Key Gotchas
+### Credentials Provider in Split Pattern
 
-Verify against authjs.dev + local Next.js proxy docs (node_modules/next/dist/docs) for the newest config and conventions.
+- `auth.config.ts`: Add Credentials provider with `authorize: () => null` placeholder
+- `auth.ts`: Override the Credentials provider with actual bcrypt validation logic
 
-- Use `next-auth@beta` (not `@latest` which installs v4)
-- Proxy file must be at `src/proxy.ts` (same level as `app/`)
-- Use named export: `export const proxy = auth(...)` not default export
-- Use `session: { strategy: 'jwt' }` with split config pattern
-- Don't set custom `pages.signIn` - use NextAuth's default page
+## Testing
 
-### Environment Variables
+1. Test registration via curl:
 
-```
-AUTH_SECRET=
-AUTH_GITHUB_ID=
-AUTH_GITHUB_SECRET=
+```bash
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test","email":"test@test.com","password":"password123","confirmPassword":"password123"}'
 ```
 
-### Testing
+2. Go to `/api/auth/signin`
+3. Sign in with email/password
+4. Verify redirect to `/dashboard`
+5. Verify GitHub OAuth still works
 
-1. Go to `/dashboard` - should redirect to sign-in
-2. Click "Sign in with GitHub"
-3. Verify redirect back to `/dashboard` after auth
+## References
 
-### References
-
-- Edge compatibility: https://authjs.dev/getting-started/installation#edge-compatibility
-- Prisma adapter: https://authjs.dev/getting-started/adapters/prisma
+- Credentials provider: https://authjs.dev/getting-started/authentication/credentials
 
 ## History
 
@@ -166,3 +164,11 @@ AUTH_GITHUB_SECRET=
 - 2026-06-16: Implemented split-config NextAuth v5 + GitHub OAuth: edge-safe `src/auth.config.ts` (providers only), full `src/auth.ts` (Prisma adapter + JWT strategy + session `user.id` callback), route handler `src/app/api/auth/[...nextauth]/route.ts`, Next.js 16 `src/proxy.ts` (protects `/dashboard/:path*`, redirects unauthenticated users to default sign-in with `callbackUrl`), and `src/types/next-auth.d.ts` (Session `user.id`). Verified conventions against authjs.dev + local Next.js proxy docs. `npm run build` passed.
 
 - 2026-06-16: Browser-tested on `feature/auth-phase-1`: `/dashboard` redirects to `/api/auth/signin?callbackUrl=...`; default sign-in page shows "Sign in with GitHub"; OAuth initiates to GitHub with callback `http://localhost:3000/api/auth/callback/github`. Marked feature Completed after `npm run build` passed.
+
+**Auth Credentials - Email/Password Provider**
+
+- 2026-06-17: Scoped current work to `context/features/auth-phase-2-spec.md`; status set to In Progress.
+
+- 2026-06-17: Created branch `feature/auth-phase-2`.
+
+- 2026-06-17: Implemented phase 2 scope: Credentials provider placeholder in `src/auth.config.ts` (edge-safe), bcrypt `authorize` override in `src/auth.ts`, and `POST /api/auth/register` route (`src/app/api/auth/register/route.ts`) with validation, duplicate-email check, and bcrypt hashing (12 rounds). User `password` field already present in schema/migration — no new migration required. Verified: `npm run build` passed; registration API returns 201/409/400 as expected; default sign-in page shows email/password fields and GitHub button.
