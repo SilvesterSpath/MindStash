@@ -5,10 +5,12 @@ import { Box, Menu, PanelLeft, PanelLeftClose, Search } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 import { AppSidebarNav } from '@/components/app-shell/app-sidebar-nav';
+import { AppUserMenu } from '@/components/app-shell/app-user-menu';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { type SidebarData } from '@/lib/db/sidebar';
+import type { ShellUser } from '@/types/auth-ui';
 import { cn } from '@/lib/utils';
 
 /**
@@ -17,9 +19,11 @@ import { cn } from '@/lib/utils';
  */
 export function AppShellClient({
   sidebarData,
+  user,
   children,
 }: Readonly<{
   sidebarData: SidebarData;
+  user: ShellUser | null;
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
@@ -85,6 +89,15 @@ export function AppShellClient({
             <Button type='button' size='sm'>
               New item
             </Button>
+            {user ? (
+              <>
+                <span
+                  className='mx-1 h-6 w-px shrink-0 bg-border'
+                  aria-hidden
+                />
+                <AppUserMenu user={user} />
+              </>
+            ) : null}
           </div>
         </div>
       </header>

@@ -1,6 +1,8 @@
 import { AppShellClient } from '@/components/app-shell/app-shell-client';
+import { auth } from '@/auth';
 import { resolveDashboardUserId } from '@/lib/db/collections';
 import { getSidebarData, type SidebarData } from '@/lib/db/sidebar';
+import type { ShellUser } from '@/types/auth-ui';
 
 const EMPTY_SIDEBAR: SidebarData = {
   itemTypes: [],
@@ -18,12 +20,23 @@ export async function AppShell({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  const user: ShellUser | null = session?.user
+    ? {
+        name: session.user.name ?? null,
+        email: session.user.email ?? null,
+        image: session.user.image ?? null,
+      }
+    : null;
+
   const userId = await resolveDashboardUserId();
   const sidebarData = userId ? await getSidebarData(userId) : EMPTY_SIDEBAR;
 
   return (
     <div className='flex min-h-svh flex-col bg-background'>
-      <AppShellClient sidebarData={sidebarData}>{children}</AppShellClient>
+      <AppShellClient sidebarData={sidebarData} user={user}>
+        {children}
+      </AppShellClient>
     </div>
   );
 }

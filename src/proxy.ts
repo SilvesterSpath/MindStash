@@ -12,7 +12,7 @@ export const proxy = auth((request) => {
   const isProtected = request.nextUrl.pathname.startsWith('/dashboard');
 
   if (isProtected && !isLoggedIn) {
-    const signInUrl = new URL('/api/auth/signin', request.nextUrl.origin);
+    const signInUrl = new URL('/sign-in', request.nextUrl.origin);
     signInUrl.searchParams.set('callbackUrl', request.nextUrl.href);
     return NextResponse.redirect(signInUrl);
   }

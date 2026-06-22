@@ -1,59 +1,66 @@
 # Current Feature
 
-## Auth Credentials - Email/Password Provider
+## Auth UI - Sign In, Register & Sign Out
 
 ## Status
 
-In Progress
+Completed
 
 ## Overview
 
-Add Credentials provider for email/password authentication with registration.
+Replace NextAuth default pages with custom UI. Show logged-in user avatar in the app header with profile access and sign-out.
 
 ## Requirements
 
-- Use bcryptjs for hashing (already installed)
-- Add password field to User model via migration if not already there
-- Update `auth.config.ts` with Credentials provider placeholder
-- Update `auth.ts` to override Credentials with bcrypt validation
-- Create registration API route at `/api/auth/register`
+### Sign In Page (`/sign-in`)
 
-## Registration API Route
+- Email and password input fields
+- "Sign in with GitHub" button
+- Link to register page
+- Form validation and error display
 
-`POST /api/auth/register`
+### Register Page (`/register`)
 
-- Accept: name, email, password, confirmPassword
-- Validate passwords match
-- Check if user already exists
-- Hash password with bcryptjs
-- Create user in database
-- Return success/error response
+- Name, email, password, confirm password fields
+- Form validation (passwords match, email format)
+- Submit to `/api/auth/register`
+- Redirect to sign-in on success with toast confirmation
+
+### Header User Menu (top-right)
+
+- Display user avatar (GitHub image or initials fallback) next to **New item**
+- Vertical divider between **New item** and avatar
+- Avatar-only trigger (no name label in header)
+- Dropdown with Profile and Sign out
+- Session user passed from server via `ShellUser` (`src/types/auth-ui.ts`)
 
 ## Notes
 
-### Credentials Provider in Split Pattern
+### Avatar Logic
 
-- `auth.config.ts`: Add Credentials provider with `authorize: () => null` placeholder
-- `auth.ts`: Override the Credentials provider with actual bcrypt validation logic
+- If user has `image` (from GitHub): use that
+- Otherwise: generate initials from name (e.g., "Brad Traversy" → "BT")
+
+### Components
+
+- `UserAvatar` — reusable avatar with initials fallback (`src/components/auth/user-avatar.tsx`)
+- `AppUserMenu` — header dropdown (`src/components/app-shell/app-user-menu.tsx`)
+- `(auth)/layout.tsx` — centered layout for sign-in/register (no app shell)
+
+### Registration Toast
+
+- Sonner toast on successful registration: "Account created. You can now sign in."
+- Toast fires in `RegisterForm` before client navigation to `/sign-in`
 
 ## Testing
 
-1. Test registration via curl:
-
-```bash
-curl -X POST http://localhost:3000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Test","email":"test@test.com","password":"password123","confirmPassword":"password123"}'
-```
-
-2. Go to `/api/auth/signin`
-3. Sign in with email/password
-4. Verify redirect to `/dashboard`
-5. Verify GitHub OAuth still works
-
-## References
-
-- Credentials provider: https://authjs.dev/getting-started/authentication/credentials
+1. Go to `/sign-in` — verify custom page renders
+2. Sign in with GitHub — verify flow works
+3. Sign in with email/password — verify flow works
+4. Verify avatar shows in header (GitHub image or initials)
+5. Click avatar — verify dropdown with Profile and Sign out
+6. Click "Sign out" — verify logout and redirect to `/sign-in`
+7. Go to `/register` — create new account — verify toast and redirect to sign-in
 
 ## History
 
@@ -172,3 +179,17 @@ curl -X POST http://localhost:3000/api/auth/register \
 - 2026-06-17: Created branch `feature/auth-phase-2`.
 
 - 2026-06-17: Implemented phase 2 scope: Credentials provider placeholder in `src/auth.config.ts` (edge-safe), bcrypt `authorize` override in `src/auth.ts`, and `POST /api/auth/register` route (`src/app/api/auth/register/route.ts`) with validation, duplicate-email check, and bcrypt hashing (12 rounds). User `password` field already present in schema/migration — no new migration required. Verified: `npm run build` passed; registration API returns 201/409/400 as expected; default sign-in page shows email/password fields and GitHub button.
+
+- 2026-06-17: Merged `feature/auth-phase-2` into `main`, pushed to remote, and deleted local feature branch. Marked feature Completed.
+
+**Auth UI - Sign In, Register & Sign Out**
+
+- 2026-06-17: Scoped current work to `context/features/auth-phase-3-spec.md`; status set to In Progress.
+
+- 2026-06-17: Created branch `feature/auth-phase-3`. Implemented custom auth UI: `/sign-in` and `/register` pages with validation and error display; server actions for credentials/GitHub sign-in and sign-out (`src/actions/auth.ts`); `pages.signIn` + proxy redirect to `/sign-in`; reusable `UserAvatar` with initials fallback; `(auth)` route group layout; placeholder `/profile` page; `AppShell` passes session user to client shell via `ShellUser`.
+
+- 2026-06-17: Moved user menu from sidebar footer to header top-right (`AppUserMenu`), next to **New item** with vertical divider; avatar-only in header (name removed from trigger).
+
+- 2026-06-17: Added Sonner toasts (`src/components/ui/sonner.tsx`); registration success shows "Account created. You can now sign in." toast before redirect to `/sign-in`.
+
+- 2026-06-17: Marked feature Completed after `npm run build` passed.

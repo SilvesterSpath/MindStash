@@ -2,21 +2,13 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Box, ChevronRight, Settings, Star } from 'lucide-react';
+import { Box, ChevronRight, Star } from 'lucide-react';
 
 import { ItemTypeGlyph } from '@/components/dashboard/item-type-glyph';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { getItemTypeHref, pluralizeTypeLabel } from '@/lib/item-type-paths';
 import { type SidebarData } from '@/lib/db/sidebar';
 import { cn } from '@/lib/utils';
-
-export function initialsFromName(name: string): string {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return '?';
-  if (parts.length === 1) return parts[0]!.slice(0, 2).toUpperCase();
-  return `${parts[0]![0]!}${parts[parts.length - 1]![0]!}`.toUpperCase();
-}
 
 function SectionToggle({
   label,
@@ -225,46 +217,6 @@ export function AppSidebarNav({
           </>
         ) : null}
       </nav>
-
-      <div
-        className={cn(
-          'shrink-0 border-t border-sidebar-border p-3',
-          collapsed && 'flex flex-col items-center gap-2 px-2 py-3',
-        )}
-      >
-        <div
-          className={cn(
-            'flex items-center gap-2',
-            collapsed ? 'flex-col' : 'w-full',
-          )}
-        >
-          <div
-            className='flex size-9 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold text-sidebar-accent-foreground'
-            aria-hidden={!collapsed}
-          >
-            DS
-          </div>
-          {!collapsed ? (
-            <>
-              <div className='min-w-0 flex-1'>
-                <div className='truncate text-sm font-medium'>Demo User</div>
-                <div className='truncate text-xs text-muted-foreground'>
-                  demo@devstash.io
-                </div>
-              </div>
-              <Button
-                type='button'
-                variant='ghost'
-                size='icon-sm'
-                className='shrink-0 text-muted-foreground'
-                aria-label='Settings'
-              >
-                <Settings className='size-4' />
-              </Button>
-            </>
-          ) : null}
-        </div>
-      </div>
     </div>
   );
 }

@@ -10,6 +10,9 @@ export const credentialsFields = {
 // Edge-compatible config: providers only, no database adapter.
 // Shared by both the proxy (route protection) and the full auth instance.
 export const authConfig = {
+  pages: {
+    signIn: '/sign-in',
+  },
   providers: [
     GitHub,
     Credentials({
