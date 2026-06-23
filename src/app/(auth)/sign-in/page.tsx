@@ -13,7 +13,16 @@ export default async function SignInPage({
   }
 
   const params = await searchParams;
-  const callbackUrl = params.callbackUrl ?? '/dashboard';
+  const rawCallbackUrl = params.callbackUrl ?? '/dashboard';
+  const callbackUrl = rawCallbackUrl.startsWith('/')
+    ? rawCallbackUrl
+    : (() => {
+        try {
+          return new URL(rawCallbackUrl).pathname;
+        } catch {
+          return '/dashboard';
+        }
+      })();
 
   return <SignInForm callbackUrl={callbackUrl} />;
 }

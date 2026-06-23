@@ -10,8 +10,24 @@ export const credentialsFields = {
 // Edge-compatible config: providers only, no database adapter.
 // Shared by both the proxy (route protection) and the full auth instance.
 export const authConfig = {
+  trustHost: true,
   pages: {
     signIn: '/sign-in',
+  },
+  session: { strategy: 'jwt' },
+  callbacks: {
+    jwt({ token, user }) {
+      if (user?.id) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (token.sub) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
   },
   providers: [
     GitHub,
