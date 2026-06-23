@@ -23,12 +23,24 @@ export function AppUserMenu({ user }: { user: ShellUser }) {
         <button
           type='button'
           className={cn(
-            'flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full',
-            'hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+            'flex min-w-0 max-w-44 items-center gap-2 rounded-lg border-0 px-1 py-1 outline-none ring-0',
+            'hover:bg-muted/60 focus:bg-muted/60 focus-visible:bg-muted/60 data-[state=open]:bg-muted/60',
           )}
           aria-label={`${displayName} account menu`}
         >
-          <UserAvatar name={user.name} image={user.image} />
+          <div className='size-8 shrink-0 overflow-hidden rounded-full'>
+            <UserAvatar name={user.name} image={user.image} />
+          </div>
+          <div className='min-w-0 text-left'>
+            <p className='truncate text-sm font-medium leading-tight'>
+              {displayName}
+            </p>
+            {user.email ? (
+              <p className='truncate text-xs text-muted-foreground leading-tight'>
+                {user.email}
+              </p>
+            ) : null}
+          </div>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' side='bottom' className='w-44'>

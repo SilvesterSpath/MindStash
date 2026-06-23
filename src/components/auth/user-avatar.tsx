@@ -19,7 +19,7 @@ export function UserAvatar({
       <img
         src={image}
         alt={displayName}
-        className={cn('size-full rounded-full object-cover', className)}
+        className={cn('size-full rounded-full border-0 object-cover', className)}
       />
     );
   }
